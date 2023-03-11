@@ -42,7 +42,12 @@
     
        
 <script>
-  /****** version 01 ******************/
+ /****** version 02 ***************/
+ /* generacion de clases          */
+ /* añadir puntuaciones           */
+ /* mejorar funcion ficha_persona */
+ /*      añadir enlaces e iconos  */
+ /********************************/
                                
 
 fetch("frontend_20200124.json")
@@ -74,6 +79,7 @@ fetch("frontend_20200124.json")
     {
       talumnos += '<article>';
       talumnos += ficha_persona(item);
+      talumnos += evolucion(item);
       talumnos += '</article>';
 
     }
@@ -89,14 +95,29 @@ fetch("frontend_20200124.json")
   function ficha_persona (persona){
     ficha = `<ul><li>Nombre : ${persona.Nombre}</li>
       <li>Email : ${persona.email}</li>
-      <li>Linked : ${persona.linked}</li>
-      <li>Github : ${persona.github}</li>
+      <li> <a href="${persona.linked}" target="_blank">Linked<img src="assets/icons/linkedin-brands.svg" width="20px"></a>
+      <a href="${persona.github}" target="_blank">github</a><img src="assets/icons/github-brands.svg" width="20px"></li>
       </ul>`;
      
       return ficha;
-      
-
   }
+
+  function evolucion(pers)
+  {
+    let evolucion = '<table><tr><th>Materia</th><th>Inicio</th><th>Fin</th></tr>';
+    console.log('persona.incio' + (pers.inicio));
+    //console.log('HTML' + pers.inicio.html);
+    for (let i in pers.inicio)
+    {
+      console.log (i + pers.inicio[i]);
+      console.log (i + pers.fin[i]);
+      evolucion += `<tr><td>${i}</td><td>${pers.inicio[i]}</td><td>${pers.fin[i]}</td></tr>`;
+    
+    }
+    evolucion +='</table>';
+    return evolucion;
+  }
+
 
   
 </script>         
