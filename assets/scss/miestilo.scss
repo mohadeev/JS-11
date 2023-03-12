@@ -1,0 +1,79 @@
+*{
+    box-sizing: border-box;
+    margin:0px;
+    padding:0px;
+}
+@font-face {
+    font-family: "punk";
+    src: url('../font/Punkkid/punk_kid.ttf') format('truetype'), ;
+    /* OJO!!!!  las rutas son relativas al css */ 
+} 
+
+.container{
+    padding: 10px;
+    font-family: helvetica;
+}
+section {
+    border:2px solid black;
+    margin : 10px;
+    display : flex;
+    flex-wrap: wrap;
+    article {
+        width:50%;
+    }
+}
+header {
+    margin: 30px;
+     display:flex; 
+    flex-direction: row;  
+} 
+#logotipo {
+    font-family: 'Press Start 2P', cursive;
+    padding:10px;
+}  
+
+#profesor,#alumnos{
+    ul {
+        list-style: none;
+    }
+}
+
+#alumnos{
+    article{
+       
+        padding : 5px;
+        border : 2px solid blue;
+    }
+}
+
+#barra{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between; 
+    width: 100%;
+
+}
+nav {
+    ul {
+        li {
+            display: inline;
+        }
+    }
+}
+
+.imagengithub{
+    border-radius: 50%;
+    width:80px;
+}
+
+#profesor {
+    font-family: "punk";
+}
+
+
+.kidpunk {
+    font-family: "punk";
+}
+@import 'color-schemes';
+
+
