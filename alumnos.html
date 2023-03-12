@@ -2,36 +2,58 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Screen</title>
-    <style>
-       .container{
-            padding: 100px;
-            font-family: helvetica;
-        }
-       section {
-         border:2px solid blue;
-         margin : 10px;
-         display : flex;
-         flex-wrap: wrap;
-       }
-
-       section article {
-         width:50%;
-       }
-
-        
-    </style>
+    <title>FETCH - JASON</title>
+    <link rel="stylesheet" href="assets/css/08-fetch.css">
+    <!-- iconos de google -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+      <!-- fuente de google -->
+      <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     
 </head>
 <body>
    <div id="capa"></div>
    <div class="container">
-       <!-- h1 datos curso general -->
-       <h1 id="curso"></h1> 
+       <header>
+        <div id="logotipo">
+          FETCH-JSON
+        </div>
+        <div id="barra">
+            
+            <div id="menu">
+                <nav>
+                    <ul>
+                        <li><a href="#cursos">cursos</a></li>
+                        <li><a href="#front">frontend</a></li>
+                        <li><a href="#cursos">contacto</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="toggle-container">
+                <button class="theme-btn light" onclick="setTheme('light')" title="Light mode">
+                <!--sun icon-->Light
+                <span class="material-icons">
+                    light_mode
+                    </span>
+                </button>
+                <button class="theme-btn dark" onclick="setTheme('dark')" title="Dark mode">
+                <!--moon icon-->Dark
+                <span class="material-icons">
+                    dark_mode
+                </span>
+                
+                </button>
+            </div>
+        </div>
+         
+       </header>
+       <h1></h1>
+       <h2>Tutor</h2>
        <section id="profesor">
          
 
        </section>
+       <h2>Alumnos</h2>
        <section id="alumnos">
         
 
@@ -42,39 +64,36 @@
     
        
 <script>
- /****** version 02 ***************/
- /* generacion de clases          */
- /* añadir puntuaciones           */
- /* mejorar funcion ficha_persona */
- /*      añadir enlaces e iconos  */
- /********************************/
-                               
+/****** version 03 **************************/
+/* scss/08-fetch.scss     css/08-fetch.css  */
+/*  sass assets/scss/08-fetch.scss assets/css/08-fetch.css */
+/* añadir funcion estrellas puntuacion     */
+/* mejora css                              */
+/* temas dark light   
+https://webdesign.tutsplus.com/es/tutorials/color-schemes-with-css-variables-and-javascript--cms-36989                     */
+/* iconos google materialize                 */
+/*  menu varias paginas                      */
+/*******************************************/
+const setTheme = theme => document.documentElement.className = theme;
 
 fetch("frontend_20200124.json")
   .then(response => {
-    if (response.ok){
-      console.log('response.ok ' + response.ok); 
+    if (response.ok)
       return response.text()
-    }else{
+    else
       throw new Error(response.status);
-     } 
   })
   .then(data => {
-    console.log("Datos: " + data);
-    const clase=JSON.parse(data);
-    console.log("Clase: " + clase);
-    console.log("Curso: " + clase.curso);
-    console.log("Lugar: " + clase.lugar);
-    // datos curso a h1
-    //document.querySelector('h1').innerHTML=`${clase.curso} ${clase.fecha_inicio}`;
-    //document.querySelector('#curso').innerHTML=`${clase.curso} ${clase.fecha_inicio} Localidad : ${clase.lugar}`;
-    document.querySelector('#curso').innerHTML=clase.curso + ' '  + clase.fecha_inicio + ' Localidad : ' + clase.lugar ;
-
-    // datos profesor a #profesor
-    document.querySelector('#profesor').innerHTML=`<h2>Tutor</h2> ${ficha_persona(clase.tutor)}`;
+      console.log("Datos: " + data);
+      const clase=JSON.parse(data);
+      console.log("Clase: " + clase);
+      // datos curso a h1
+    document.querySelector('h1').innerHTML=`${clase.curso} ${clase.fecha_inicio}`;
+      // datos profesor a #profesor
+    document.querySelector('#profesor').innerHTML=` ${ficha_persona(clase.tutor)}`;
     // datos alumnos a  #alumnos
-    //let talumnos = '<h2>Alumnos</h2>';
-    let talumnos ='';
+     //let talumnos = '<h2>Alumnos</h2>';
+     let talumnos ='';
     for (const item of clase.alumnos)
     {
       talumnos += '<article>';
@@ -84,7 +103,9 @@ fetch("frontend_20200124.json")
 
     }
     document.querySelector('#alumnos').innerHTML=talumnos;
-    
+     
+
+   
    
   })
   .catch(err => {
@@ -93,31 +114,48 @@ fetch("frontend_20200124.json")
 
 
   function ficha_persona (persona){
-    ficha = `<ul><li>Nombre : ${persona.Nombre}</li>
+   /*  ficha = `<ul><li>Nombre : ${persona.Nombre}</li>
       <li>Email : ${persona.email}</li>
       <li> <a href="${persona.linked}" target="_blank">Linked<img src="assets/icons/linkedin-brands.svg" width="20px"></a>
       <a href="${persona.github}" target="_blank">github</a><img src="assets/icons/github-brands.svg" width="20px"></li>
-      </ul>`;
+      </ul>`; */
+      ficha = `<ul><li>Nombre : ${persona.Nombre}</li>
+      <li>Email : ${persona.email}</li>
+      <li> <a href="${persona.linked}" target="_blank">Linked<img src="assets/icons/linkedin-brands.svg" width="20px"></a>
+      <a href="${persona.github}" target="_blank">github</a><img src="assets/img/gh.svg" width="20px"></li>
+      </ul>`; 
      
       return ficha;
+
   }
 
   function evolucion(pers)
   {
-    let evolucion = '<table><tr><th>Materia</th><th>Inicio</th><th>Fin</th></tr>';
+    let evolucion = '<table><th><td>Materia</td><td>Inicio</td><td>Fin</td></tr>';
     console.log('persona.incio' + (pers.inicio));
     //console.log('HTML' + pers.inicio.html);
-    for (let i in pers.inicio)
+    for (let i in pers.inicio,pers.fin)
     {
       console.log (i + pers.inicio[i]);
       console.log (i + pers.fin[i]);
-      evolucion += `<tr><td>${i}</td><td>${pers.inicio[i]}</td><td>${pers.fin[i]}</td></tr>`;
+      evolucion += `<tr><td>${i}</td><td>${estrellas(pers.inicio[i])}</td><td>${estrellas(pers.fin[i])}</td></tr>`;
     
     }
+      
+    
     evolucion +='</table>';
     return evolucion;
-  }
 
+
+   
+ 
+
+  }
+  function estrellas(n){
+        texto = '';
+        for (i=1;i<=n;i++){ texto += '*';}
+        return texto;
+    }
 
   
 </script>         
